@@ -1,388 +1,1257 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>NetLab – Simulator Jaringan Komputer</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Xhan Learning Space | Belajar Teknologi</title>
+
+<meta name="description" content="Platform pembelajaran digital TKJ dan RPL bersama Xhan. Belajar jaringan komputer, pemrograman, database, dan teknologi.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-:root{--paper:#f1f5f4;--grid:#d9e3e1;--ink:#13293d;--mute:#586e80;--line:#c3d1d0;--accent:#e4572e;--ok:#1b8a5a;--bad:#c0392b;--panel:#fbfdfc;--term:#0f2233;--termfg:#c8f3dd}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{font:15px/1.45 "IBM Plex Sans",system-ui,sans-serif;color:var(--ink);background:var(--paper);display:grid;grid-template-rows:auto 1fr;overflow:hidden}
-header{display:flex;flex-wrap:wrap;gap:8px 18px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
-h1{font-size:19px;margin:0 8px 0 0;letter-spacing:-.01em}
-.tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.tools .sep{width:1px;height:24px;background:var(--line);margin:0 4px}
-button{font:inherit;border:1px solid var(--ink);background:#fff;color:var(--ink);padding:5px 11px;border-radius:5px;cursor:pointer}
-button:hover{background:#e6eeee}
-button.on{background:var(--ink);color:#fff}
-button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
-main{display:grid;grid-template-columns:1fr 320px;grid-template-rows:1fr 210px;min-height:0}
-#stage{position:relative;min-height:0;background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:30px 30px}
-svg{width:100%;height:100%;display:block;touch-action:none}
-#msg{position:absolute;left:12px;bottom:10px;background:var(--ink);color:#fff;padding:4px 10px;border-radius:5px;font-size:13px;max-width:90%}
-aside{grid-row:1/3;grid-column:2;border-left:1px solid var(--line);background:var(--panel);overflow:auto;padding:14px}
-aside h3{margin:0 0 8px;font-size:16px}
-aside h4{margin:18px 0 6px;font-size:14px}
-label{display:block;font-size:13px;color:var(--mute);margin:8px 0 0}
-input,textarea{width:100%;font:14px "IBM Plex Mono",monospace;padding:5px 7px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
-input.invalid{border-color:var(--bad);background:#fdeceb}
-fieldset{border:1px solid var(--line);border-radius:6px;margin:10px 0 0;padding:4px 8px 8px}
-legend{font-size:13px;color:var(--mute);padding:0 4px}
-fieldset input+input{margin-top:5px}
-.hint{color:var(--mute);font-size:13px;margin:6px 0}
-ul.mis{list-style:none;padding:0;margin:0}
-ul.mis li{display:flex;gap:8px;padding:5px 0;font-size:13.5px;border-bottom:1px dashed var(--line)}
-ul.mis li::before{content:"○";color:var(--mute)}
-ul.mis li.done::before{content:"●";color:var(--ok)}
-ul.mis li.done{color:var(--ok)}
-#term{grid-column:1;background:var(--term);color:var(--termfg);display:flex;flex-direction:column;min-height:0;font:13.5px/1.5 "IBM Plex Mono",monospace}
-#out{flex:1;overflow:auto;padding:8px 12px;white-space:pre-wrap}
-#out .err{color:#ff9d8f}#out .sys{color:#8fb4c9}
-#inrow{display:flex;align-items:center;border-top:1px solid #24435c;padding:4px 12px;gap:8px}
-#prompt{color:#ffd28a;white-space:nowrap}
-#cmd{border:0;background:transparent;color:#fff;flex:1;padding:4px 0}
-#cmd:focus-visible{outline:0}
-.dev{cursor:grab}.dev text{pointer-events:none}
-.dev .shape{fill:#fff;stroke:var(--ink);stroke-width:2}
-.dev.sel .shape{stroke:var(--accent);stroke-width:4}
-.dev.pick .shape{stroke:var(--ok);stroke-width:4;stroke-dasharray:6 3}
-.dev .name{font:600 13px "IBM Plex Sans",sans-serif;fill:var(--ink);text-anchor:middle}
-.dev .ip{font:11.5px "IBM Plex Mono",monospace;fill:var(--mute);text-anchor:middle}
-.dev .glyph{font:600 13px "IBM Plex Mono",monospace;fill:var(--ink);text-anchor:middle}
-.cable{stroke:var(--ink);stroke-width:2.5}
-@media(max-width:900px){
- body{overflow:auto;display:block}
- main{display:block}
- #stage{height:60vh}aside{border-left:0;border-top:1px solid var(--line)}
- #term{height:260px}
+:root {
+    --bg: #080f1e;
+    --surface: #101b30;
+    --surface2: #14233d;
+    --blue: #3984ff;
+    --cyan: #40d9ff;
+    --white: #f4f7ff;
+    --muted: #9aaac3;
+    --border: rgba(255,255,255,.09);
 }
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.container {
+    width: 90%;
+    max-width: 1180px;
+    margin: auto;
+}
+
+/* NAVBAR */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(8,15,30,.92);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--border);
+}
+
+.navbar {
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: var(--cyan);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: var(--muted);
+    font-size: 14px;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: var(--cyan);
+}
+
+.nav-button {
+    background: var(--blue);
+    padding: 11px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .3s;
+}
+
+.nav-button:hover {
+    background: var(--cyan);
+    color: #07101f;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    color: white;
+    border: none;
+    font-size: 27px;
+    cursor: pointer;
+}
+
+/* HERO */
+
+.hero {
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 80% 40%, rgba(30,110,255,.18), transparent 45%),
+      radial-gradient(ellipse at 10% 90%, rgba(30,210,255,.09), transparent 35%);
+}
+
+.hero-content {
+    display: grid;
+    grid-template-columns: 1.15fr .85fr;
+    align-items: center;
+    gap: 55px;
+    padding: 90px 0;
+}
+
+.tag {
+    display: inline-block;
+    color: var(--cyan);
+    background: rgba(64,217,255,.09);
+    border: 1px solid rgba(64,217,255,.22);
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+}
+
+.hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(42px, 5.5vw, 68px);
+    line-height: 1.1;
+    letter-spacing: -2.5px;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 530px;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 32px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 9px;
+    font-weight: 700;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.btn-primary {
+    background: linear-gradient(100deg, var(--blue), #2865e8);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(57,132,255,.25);
+}
+
+.btn-outline {
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,.03);
+}
+
+.btn-outline:hover {
+    border-color: var(--cyan);
+}
+
+/* HERO VISUAL */
+
+.hero-visual {
+    position: relative;
+}
+
+.code-window {
+    background: #101b30;
+    border: 1px solid rgba(100,160,255,.2);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 80px rgba(0,0,0,.35);
+    transform: rotate(2deg);
+}
+
+.window-header {
+    padding: 15px 20px;
+    background: #182640;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff6262;
+}
+
+.dot:nth-child(2) { background: #ffce58; }
+.dot:nth-child(3) { background: #43d99a; }
+
+.window-title {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.code-content {
+    padding: 28px;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 2.1;
+    color: #a6bad7;
+    overflow-x: auto;
+}
+
+.code-content .purple { color: #c99aff; }
+.code-content .cyan { color: #48dcff; }
+.code-content .green { color: #9ce6a6; }
+.code-content .orange { color: #ffbd80; }
+
+.floating-card {
+    position: absolute;
+    bottom: -28px;
+    left: -35px;
+    padding: 16px 20px;
+    background: #172945;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,.3);
+    font-size: 12px;
+}
+
+.floating-card strong {
+    display: block;
+    color: var(--cyan);
+    font-size: 19px;
+}
+
+/* GENERAL SECTION */
+
+section {
+    padding: 90px 0;
+}
+
+.section-heading {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 48px;
+}
+
+.section-heading .subtitle {
+    color: var(--cyan);
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.section-heading h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 36px;
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* LEARNING PATH */
+
+.learning-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 25px;
+}
+
+.learning-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 35px;
+    transition: .3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.learning-card:hover {
+    transform: translateY(-7px);
+    border-color: rgba(64,217,255,.4);
+}
+
+.card-icon {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    font-size: 27px;
+    background: rgba(57,132,255,.13);
+    margin-bottom: 25px;
+}
+
+.learning-card h3 {
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.learning-card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    margin-bottom: 24px;
+}
+
+.topic-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 27px;
+}
+
+.topic-list span {
+    background: #1c2b44;
+    color: #b7c8e0;
+    padding: 7px 11px;
+    border-radius: 6px;
+    font-size: 11px;
+}
+
+.card-link {
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* MATERIAL */
+
+.materials {
+    background: #0b1527;
+}
+
+.material-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.material-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    overflow: hidden;
+    transition: .3s;
+}
+
+.material-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--blue);
+}
+
+.material-banner {
+    height: 145px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    background: linear-gradient(135deg,#152e54,#174d80);
+}
+
+.material-card:nth-child(2) .material-banner {
+    background: linear-gradient(135deg,#31205b,#543f96);
+}
+
+.material-card:nth-child(3) .material-banner {
+    background: linear-gradient(135deg,#124e50,#187e83);
+}
+
+.material-info {
+    padding: 22px;
+}
+
+.material-label {
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.material-info h3 {
+    margin: 10px 0;
+    font-size: 17px;
+}
+
+.material-info p {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.material-link {
+    font-size: 12px;
+    color: var(--cyan);
+    font-weight: 700;
+}
+
+/* ABOUT */
+
+.about-grid {
+    display: grid;
+    grid-template-columns: .8fr 1.2fr;
+    align-items: center;
+    gap: 70px;
+}
+
+.about-visual {
+    background: linear-gradient(145deg,#153f71,#10203a);
+    min-height: 330px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-initial {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 140px;
+    font-weight: 800;
+    color: rgba(255,255,255,.9);
+    text-shadow: 0 10px 50px rgba(0,0,0,.3);
+}
+
+.about-text .subtitle {
+    color: var(--cyan);
+    font-size: 12px;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.about-text h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 35px;
+    line-height: 1.3;
+    margin: 15px 0 20px;
+}
+
+.about-text p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+    margin-bottom: 15px;
+}
+
+.about-signature {
+    margin-top: 25px;
+    color: var(--cyan);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* VALUES */
+
+.values {
+    background: #0b1527;
+}
+
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.value-item {
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    background: var(--surface);
+}
+
+.value-item .icon {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.value-item h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.value-item p {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* CTA */
+
+.cta {
+    padding: 75px 0;
+}
+
+.cta-box {
+    text-align: center;
+    padding: 65px 25px;
+    border-radius: 20px;
+    background:
+      radial-gradient(circle at 50% 100%,rgba(64,217,255,.2),transparent 55%),
+      linear-gradient(120deg,#142b50,#14203c);
+    border: 1px solid rgba(64,217,255,.18);
+}
+
+.cta-box h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 34px;
+    margin-bottom: 15px;
+}
+
+.cta-box p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 1px solid var(--border);
+    padding: 35px 0;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-content p {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+    font-size: 12px;
+    color: var(--muted);
+}
+
+.footer-links a:hover {
+    color: var(--cyan);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:850px) {
+
+    .hero-content {
+        grid-template-columns: 1fr;
+        gap: 65px;
+    }
+
+    .hero-visual {
+        max-width: 600px;
+        width: 90%;
+        margin: auto;
+    }
+
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+    .material-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .nav-links {
+        gap: 17px;
+    }
+}
+
+@media(max-width:650px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-button {
+        display: none;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 76px;
+        left: 0;
+        width: 100%;
+        padding: 25px;
+        background: #101b30;
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+
+    .hero-content {
+        padding: 75px 0;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    section {
+        padding: 65px 0;
+    }
+
+    .learning-grid,
+    .material-grid,
+    .value-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading h2 {
+        font-size: 29px;
+    }
+
+    .learning-card {
+        padding: 25px;
+    }
+
+    .about-text h2 {
+        font-size: 29px;
+    }
+
+    .cta-box h2 {
+        font-size: 27px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .floating-card {
+        left: -10px;
+    }
+}
 </style>
 </head>
+
 <body>
+
+<!-- NAVIGATION -->
 <header>
- <h1>NetLab · Simulator Jaringan</h1>
- <div class="tools" role="toolbar" aria-label="Alat">
-  <button data-add="pc">+ PC</button>
-  <button data-add="server">+ Server</button>
-  <button data-add="switch">+ Switch</button>
-  <button data-add="router">+ Router</button>
-  <span class="sep"></span>
-  <button data-mode="select" class="on">Pilih / Geser</button>
-  <button data-mode="cable">Kabel</button>
-  <button data-mode="delete">Hapus</button>
-  <span class="sep"></span>
-  <button id="btnEx">Muat contoh</button>
-  <button id="btnClr">Kosongkan</button>
- </div>
+    <div class="container navbar">
+
+        <a href="#" class="logo">
+            XHAN<span>.</span>
+        </a>
+
+        <button class="menu-toggle" id="menuToggle"
+        aria-label="Buka menu" aria-expanded="false">
+            ☰
+        </button>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#jurusan">Program Keahlian</a></li>
+            <li><a href="#materi">Materi Belajar</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+        </ul>
+
+        <a href="#jurusan" class="nav-button">
+            Mulai Belajar →
+        </a>
+
+    </div>
 </header>
-<main>
- <section id="stage" aria-label="Kanvas topologi jaringan">
-  <svg id="svg" viewBox="0 0 900 520" preserveAspectRatio="xMidYMid meet"><g id="gL"></g><g id="gD"></g><g id="gP"></g></svg>
-  <div id="msg">Mulai dengan menekan “Muat contoh”.</div>
- </section>
- <section id="term" aria-label="Terminal">
-  <div id="out"></div>
-  <div id="inrow"><span id="prompt">–&gt;</span><input id="cmd" autocomplete="off" spellcheck="false" aria-label="Perintah terminal" placeholder="ketik: bantuan"></div>
- </section>
- <aside>
-  <div id="panel"></div>
-  <h4>Misi belajar</h4>
-  <ul class="mis" id="mis"></ul>
- </aside>
-</main>
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+<div class="container hero-content">
+
+    <div>
+
+        <div class="tag">
+            ✦ DIGITAL LEARNING PLATFORM
+        </div>
+
+        <h1>
+            Learn Today.<br>
+            Build <span>Tomorrow.</span>
+        </h1>
+
+        <p>
+            Selamat datang di ruang belajar digital Xhan.
+            Tempat untuk mengeksplorasi teknologi, memahami
+            konsep, mengembangkan keterampilan, dan
+            menciptakan solusi melalui dunia teknologi.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#jurusan" class="btn btn-primary">
+                Jelajahi Pembelajaran →
+            </a>
+
+            <a href="#tentang" class="btn btn-outline">
+                Kenali Pengajar
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="code-window">
+
+            <div class="window-header">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+
+                <span class="window-title">
+                    learning.py
+                </span>
+            </div>
+
+            <div class="code-content">
+
+                <div><span class="purple">class</span> <span class="cyan">FutureDeveloper</span>:</div>
+
+                <div>&nbsp;&nbsp;name = <span class="green">"Xhan Learning Space"</span></div>
+
+                <div>&nbsp;&nbsp;skills = [</div>
+
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange">"Networking"</span>,</div>
+
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange">"Programming"</span>,</div>
+
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange">"Database"</span>,</div>
+
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="orange">"Technology"</span></div>
+
+                <div>&nbsp;&nbsp;]</div>
+
+                <br>
+
+                <div>&nbsp;&nbsp;<span class="purple">def</span> <span class="cyan">learn</span>(self):</div>
+
+                <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="purple">return</span> <span class="green">"Never Stop Learning!"</span></div>
+
+                <br>
+
+                <div><span class="green"># Your future starts here.</span></div>
+
+                <div><span class="cyan">>>> Let's build something amazing!</span></div>
+
+            </div>
+
+        </div>
+
+        <div class="floating-card">
+            <strong>TKJ + RPL</strong>
+            Learn. Practice. Create.
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- PROGRAM KEAHLIAN -->
+<section id="jurusan">
+
+<div class="container">
+
+    <div class="section-heading">
+
+        <div class="subtitle">LEARNING PATH</div>
+
+        <h2>Explore Your Learning Path</h2>
+
+        <p>
+            Pilih bidang keahlianmu dan mulai perjalanan
+            belajar teknologi dari dasar hingga praktik.
+        </p>
+
+    </div>
+
+
+    <div class="learning-grid">
+
+        <!-- TKJ -->
+
+        <div class="learning-card">
+
+            <div class="card-icon">🌐</div>
+
+            <h3>Teknik Komputer dan Jaringan</h3>
+
+            <p>
+                Pelajari bagaimana komputer saling terhubung,
+                membangun infrastruktur jaringan, mengelola
+                server, dan menjaga keamanan sistem jaringan.
+            </p>
+
+            <div class="topic-list">
+
+                <span>Networking</span>
+                <span>Subnetting</span>
+                <span>MikroTik</span>
+                <span>Linux Server</span>
+                <span>Cyber Security</span>
+                <span>Fiber Optic</span>
+
+            </div>
+
+            <!-- GANTI LINK DI BAWAH INI -->
+
+            <a href="tkj/index.html" class="card-link">
+                Explore TKJ Learning →
+            </a>
+
+        </div>
+
+
+        <!-- RPL -->
+
+        <div class="learning-card">
+
+            <div class="card-icon">💻</div>
+
+            <h3>Rekayasa Perangkat Lunak</h3>
+
+            <p>
+                Pelajari cara merancang, membangun, menguji,
+                dan mengembangkan aplikasi serta sistem
+                informasi menggunakan teknologi pemrograman.
+            </p>
+
+            <div class="topic-list">
+
+                <span>HTML & CSS</span>
+                <span>JavaScript</span>
+                <span>PHP</span>
+                <span>MySQL</span>
+                <span>Database</span>
+                <span>Web Development</span>
+
+            </div>
+
+            <!-- GANTI LINK DI BAWAH INI -->
+
+            <a href="rpl/index.html" class="card-link">
+                Explore RPL Learning →
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- MATERI PEMBELAJARAN -->
+<section class="materials" id="materi">
+
+<div class="container">
+
+    <div class="section-heading">
+
+        <div class="subtitle">KNOWLEDGE CENTER</div>
+
+        <h2>Learning Resources</h2>
+
+        <p>
+            Kumpulan sumber belajar untuk membantu
+            memahami konsep dan meningkatkan keterampilan.
+        </p>
+
+    </div>
+
+
+    <div class="material-grid">
+
+        <div class="material-card">
+
+            <div class="material-banner">📡</div>
+
+            <div class="material-info">
+
+                <div class="material-label">TKJ / NETWORKING</div>
+
+                <h3>Perencanaan Pengalamatan Jaringan</h3>
+
+                <p>
+                    Memahami IP Address, subnetting CIDR,
+                    VLSM, dan perancangan topologi jaringan.
+                </p>
+
+                <a href="tkj/materi.html" class="material-link">
+                    Pelajari Materi →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="material-card">
+
+            <div class="material-banner">⚙️</div>
+
+            <div class="material-info">
+
+                <div class="material-label">RPL / PROGRAMMING</div>
+
+                <h3>Web Development</h3>
+
+                <p>
+                    Mengenal HTML, CSS, JavaScript,
+                    serta proses membangun aplikasi web.
+                </p>
+
+                <a href="rpl/materi.html" class="material-link">
+                    Pelajari Materi →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="material-card">
+
+            <div class="material-banner">🗄️</div>
+
+            <div class="material-info">
+
+                <div class="material-label">RPL / DATABASE</div>
+
+                <h3>Database Management System</h3>
+
+                <p>
+                    Memahami SQL, desain database,
+                    relasi tabel, JOIN, dan pengelolaan data.
+                </p>
+
+                <a href="rpl/database.html" class="material-link">
+                    Pelajari Materi →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- TENTANG PENGAJAR -->
+<section id="tentang">
+
+<div class="container about-grid">
+
+    <div class="about-visual">
+
+        <div class="about-initial">X.</div>
+
+    </div>
+
+
+    <div class="about-text">
+
+        <div class="subtitle">ABOUT THE EDUCATOR</div>
+
+        <h2>
+            Teaching Technology.<br>
+            Inspiring Innovation.
+        </h2>
+
+        <p>
+            Halo! Saya Xhan, seorang pendidik di bidang
+            teknologi informasi yang berfokus pada
+            pengembangan kompetensi siswa SMK,
+            khususnya pada bidang Teknik Komputer
+            dan Jaringan (TKJ) serta Rekayasa Perangkat
+            Lunak (RPL).
+        </p>
+
+        <p>
+            Saya percaya bahwa pembelajaran teknologi
+            tidak cukup hanya dengan memahami teori.
+            Siswa harus memiliki kesempatan untuk
+            bereksperimen, mencoba, membangun,
+            memecahkan masalah, dan menghasilkan
+            karya nyata.
+        </p>
+
+        <p>
+            Melalui platform ini, saya ingin menghadirkan
+            ruang belajar yang lebih terbuka, interaktif,
+            dan relevan dengan perkembangan teknologi.
+        </p>
+
+        <div class="about-signature">
+            Xhan.
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- NILAI PEMBELAJARAN -->
+<section class="values">
+
+<div class="container">
+
+    <div class="section-heading">
+
+        <div class="subtitle">OUR PHILOSOPHY</div>
+
+        <h2>How We Learn</h2>
+
+        <p>
+            Belajar teknologi melalui proses yang
+            bermakna dan berorientasi pada keterampilan.
+        </p>
+
+    </div>
+
+
+    <div class="value-grid">
+
+        <div class="value-item">
+
+            <div class="icon">📖</div>
+
+            <h3>Understand</h3>
+
+            <p>
+                Memahami konsep dan dasar teori
+                sebelum menerapkannya dalam praktik.
+            </p>
+
+        </div>
+
+
+        <div class="value-item">
+
+            <div class="icon">🛠️</div>
+
+            <h3>Practice</h3>
+
+            <p>
+                Mengembangkan keterampilan melalui
+                eksperimen, simulasi, dan proyek nyata.
+            </p>
+
+        </div>
+
+
+        <div class="value-item">
+
+            <div class="icon">🚀</div>
+
+            <h3>Create</h3>
+
+            <p>
+                Menghasilkan karya, inovasi, dan solusi
+                teknologi untuk menghadapi masa depan.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- CALL TO ACTION -->
+<section class="cta">
+
+<div class="container">
+
+    <div class="cta-box">
+
+        <h2>Ready to Explore Technology?</h2>
+
+        <p>
+            Mulai perjalanan belajarmu hari ini.
+            Temukan potensi dan bangun masa depanmu
+            melalui teknologi.
+        </p>
+
+        <a href="#jurusan" class="btn btn-primary">
+            Start Learning Now →
+        </a>
+
+    </div>
+
+</div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+
+<div class="container footer-content">
+
+    <div>
+        <a href="#" class="logo">XHAN<span>.</span></a>
+
+        <p style="margin-top:8px;">
+            Digital Learning Space for Future Innovators.
+        </p>
+    </div>
+
+
+    <div class="footer-links">
+
+        <a href="#home">Home</a>
+
+        <a href="#jurusan">Learning Path</a>
+
+        <a href="#materi">Resources</a>
+
+        <a href="#tentang">About</a>
+
+    </div>
+
+
+    <p>
+        © <span id="year"></span> Xhan Learning Space.
+        All Rights Reserved.
+    </p>
+
+</div>
+
+</footer>
+
+
+<!-- JAVASCRIPT -->
 <script>
-"use strict";
-const $=s=>document.querySelector(s), NS="http://www.w3.org/2000/svg";
-const TYPES={pc:{label:"PC",ports:1,pre:"PC"},server:{label:"Server",ports:1,pre:"SRV"},switch:{label:"Switch (Layer 2)",ports:8,pre:"SW"},router:{label:"Router (Layer 3)",ports:4,pre:"R"}};
-let devs=[],links=[],sel=null,mode="select",pick=null,uid=1,busy=false;
-const cnt={};
-const flags={m1:0,m2:0,m3:0,m4:0};
-const MISSIONS=[["m1","Ping berhasil antar dua perangkat dalam satu subnet"],["m2","Ping berhasil melewati router (beda subnet)"],["m3","Temukan satu kegagalan (mis. gateway salah) dan baca pesan error-nya"],["m4","Jalankan traceroute untuk melihat setiap hop"]];
 
-/* ---------- Utilitas IP ---------- */
-const ip2n=s=>{const p=String(s).trim().split(".");if(p.length!==4||p.some(x=>!/^\d{1,3}$/.test(x)||+x>255))return null;return((+p[0]<<24)|(+p[1]<<16)|(+p[2]<<8)|+p[3])>>>0};
-const validMask=s=>{const n=ip2n(s);if(n===null)return false;const inv=(~n)>>>0;return((inv+1)&inv)===0};
-const netOf=(ip,m)=>(ip2n(ip)&ip2n(m))>>>0;
-const same=(ip,m,x)=>ip2n(ip)!==null&&validMask(m)&&ip2n(x)!==null&&netOf(ip,m)===netOf(x,m);
-const maskLen=m=>ip2n(m).toString(2).replace(/0/g,"").length;
-const ready=p=>ip2n(p.ip)!==null&&validMask(p.mask);
-const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 
-/* ---------- Model ---------- */
-const dev=id=>devs.find(d=>d.id===id);
-function addDev(type,x,y,name){
- cnt[type]=(cnt[type]||0)+1;
- const d={id:uid++,type,x,y,name:name||TYPES[type].pre+cnt[type],gw:"",routes:[],routesText:"",
-  ports:Array.from({length:TYPES[type].ports},()=>({ip:"",mask:"255.255.255.0"}))};
- devs.push(d);return d;
-}
-function peer(id,pi){
- for(const l of links){
-  if(l.a===id&&l.pa===pi)return{dev:l.b,port:l.pb};
-  if(l.b===id&&l.pb===pi)return{dev:l.a,port:l.pa};
- }
- return null;
-}
-const freePort=d=>d.ports.findIndex((_,i)=>!peer(d.id,i));
-function connect(a,b){
- if(a===b)return say("Pilih dua perangkat yang berbeda.");
- if(links.some(l=>(l.a===a&&l.b===b)||(l.a===b&&l.b===a)))return say("Dua perangkat itu sudah terhubung.");
- const A=dev(a),B=dev(b),pa=freePort(A),pb=freePort(B);
- if(pa<0||pb<0)return say("Port penuh pada "+(pa<0?A.name:B.name)+".");
- links.push({a,pa,b,pb});say("Kabel terpasang: "+A.name+" ↔ "+B.name);
-}
-function removeDev(id){
- devs=devs.filter(d=>d.id!==id);links=links.filter(l=>l.a!==id&&l.b!==id);
- if(sel===id)sel=null;
-}
+menuToggle.addEventListener("click", function() {
 
-/* ---------- Mesin jaringan ---------- */
-// Semua perangkat Layer 3 yang berada di satu broadcast domain (melewati switch)
-function l2(id,pi){
- const out=[],seen=new Set();
- (function walk(fid,fp,via){
-  const p=peer(fid,fp);if(!p)return;
-  const d=dev(p.dev);
-  if(d.type==="switch"){
-   if(seen.has(d.id))return;seen.add(d.id);
-   d.ports.forEach((_,i)=>{if(i!==p.port)walk(d.id,i,[...via,d.id])});
-  }else out.push({dev:d.id,port:p.port,via});
- })(id,pi,[]);
- return out;
-}
-// Menghitung jalur paket dari perangkat src menuju IP tujuan
-function route(srcId,dst){
- let cur=srcId,nodes=[srcId],hops=[],srcIp=null,ttl=16;
- const fail=m=>({ok:false,nodes,hops,msg:m,srcIp});
- while(ttl-->0){
-  const d=dev(cur);
-  if(d.ports.some(p=>p.ip.trim()===dst))return{ok:true,nodes,hops,srcIp:srcIp||dst};
-  let out,nh;
-  if(d.type==="router"){
-   const i=d.ports.findIndex(p=>ready(p)&&same(p.ip,p.mask,dst));
-   if(i>=0){out=i;nh=dst}
-   else{
-    let best=null;
-    d.routes.forEach(r=>{if(same(r.net,r.mask,dst)&&(!best||maskLen(r.mask)>maskLen(best.mask)))best=r});
-    if(!best)return fail("Destination net unreachable: "+d.name+" tidak punya rute ke "+dst);
-    const j=d.ports.findIndex(p=>ready(p)&&same(p.ip,p.mask,best.nh));
-    if(j<0)return fail("Next-hop "+best.nh+" tidak terhubung langsung ke "+d.name);
-    out=j;nh=best.nh;
-   }
-  }else{
-   const p=d.ports[0];
-   if(!ready(p))return fail(d.name+": IP address / subnet mask belum diatur dengan benar");
-   if(same(p.ip,p.mask,dst))nh=dst;
-   else{
-    if(ip2n(d.gw)===null)return fail(d.name+": tujuan beda subnet tetapi default gateway belum diisi");
-    if(!same(p.ip,p.mask,d.gw))return fail(d.name+": gateway "+d.gw+" berada di luar subnet PC");
-    nh=d.gw;
-   }
-   out=0;
-  }
-  if(srcIp===null)srcIp=d.ports[out].ip.trim();
-  const hit=l2(d.id,out).find(e=>dev(e.dev).ports[e.port].ip.trim()===nh);
-  if(!hit)return fail("Destination host unreachable: tidak ada perangkat ber-IP "+nh+" yang terjangkau (ARP gagal)");
-  nodes=[...nodes,...hit.via,hit.dev];hops.push({dev:hit.dev,port:hit.port});
-  cur=hit.dev;
-  if(dev(cur).ports[hit.port].ip.trim()===dst)return{ok:true,nodes,hops,srcIp};
-  if(dev(cur).type!=="router")return fail(dev(cur).name+" menolak paket (bukan tujuan dan bukan router)");
- }
- return fail("TTL expired in transit (kemungkinan routing loop)");
-}
+    const isOpen = navLinks.classList.toggle("active");
 
-/* ---------- Gambar kanvas ---------- */
-const svg=$("#svg"),gL=$("#gL"),gD=$("#gD"),gP=$("#gP");
-const el=(n,a={},t)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e};
-function render(){
- gL.innerHTML="";gD.innerHTML="";
- links.forEach(l=>{const a=dev(l.a),b=dev(l.b);gL.appendChild(el("line",{class:"cable",x1:a.x,y1:a.y,x2:b.x,y2:b.y}))});
- devs.forEach(d=>{
-  const g=el("g",{class:"dev"+(d.id===sel?" sel":"")+(d.id===pick?" pick":""),transform:`translate(${d.x},${d.y})`,"data-id":d.id,tabindex:0});
-  let shape,glyph;
-  if(d.type==="router"){shape=el("circle",{class:"shape",r:27,style:"fill:#fbd5c6"});glyph="RTR"}
-  else if(d.type==="switch"){shape=el("rect",{class:"shape",x:-36,y:-15,width:72,height:30,rx:3,style:"fill:#cfe8e1"});glyph="SWITCH"}
-  else if(d.type==="server"){shape=el("rect",{class:"shape",x:-22,y:-30,width:44,height:60,rx:4,style:"fill:#dbe4f4"});glyph="SRV"}
-  else{shape=el("rect",{class:"shape",x:-30,y:-20,width:60,height:40,rx:5});glyph="PC"}
-  g.appendChild(shape);g.appendChild(el("text",{class:"glyph",y:4},glyph));
-  const off=d.type==="server"?44:d.type==="router"?44:34;
-  g.appendChild(el("text",{class:"name",y:off},d.name));
-  const ip=d.type==="switch"?"":d.ports.map(p=>p.ip.trim()).filter(Boolean).join(" ");
-  if(ip)g.appendChild(el("text",{class:"ip",y:off+14},ip));
-  gD.appendChild(g);
- });
-}
-function anim(nodes,color){
- return new Promise(res=>{
-  const pts=nodes.map(id=>dev(id)).filter(Boolean).map(d=>[d.x,d.y]);
-  if(pts.length<2)return res();
-  const dot=el("circle",{r:7,fill:color,stroke:"#fff","stroke-width":2});gP.appendChild(dot);
-  let seg=0,t0=performance.now();const D=280;
-  (function step(t){
-   const k=Math.min((t-t0)/D,1),a=pts[seg],b=pts[seg+1];
-   dot.setAttribute("cx",a[0]+(b[0]-a[0])*k);dot.setAttribute("cy",a[1]+(b[1]-a[1])*k);
-   if(k>=1){seg++;t0=t;if(seg>=pts.length-1){dot.remove();return res()}}
-   requestAnimationFrame(step);
-  })(t0);
- });
-}
-function say(t){$("#msg").textContent=t}
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.textContent = isOpen ? "✕" : "☰";
 
-/* ---------- Interaksi kanvas ---------- */
-let drag=null;
-const toSvg=e=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())};
-svg.addEventListener("pointerdown",e=>{
- const g=e.target.closest(".dev");
- if(!g){if(mode==="select"){sel=null;pick=null;render();renderPanel();updatePrompt()}return}
- const id=+g.dataset.id;
- if(mode==="cable"){
-  if(pick===null){pick=id;say("Pilih perangkat kedua untuk menyambungkan kabel.")}
-  else{connect(pick,id);pick=null;renderPanel()}
-  render();return;
- }
- if(mode==="delete"){removeDev(id);render();renderPanel();updatePrompt();return}
- sel=id;const d=dev(id),p=toSvg(e);drag={id,dx:p.x-d.x,dy:p.y-d.y};
- svg.setPointerCapture(e.pointerId);render();renderPanel();updatePrompt();
-});
-svg.addEventListener("pointermove",e=>{
- if(!drag)return;const d=dev(drag.id),p=toSvg(e);
- d.x=Math.max(40,Math.min(860,p.x-drag.dx));d.y=Math.max(40,Math.min(480,p.y-drag.dy));render();
-});
-svg.addEventListener("pointerup",()=>{drag=null});
-document.querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{
- const d=addDev(b.dataset.add,120+Math.random()*660,100+Math.random()*300);
- sel=d.id;render();renderPanel();updatePrompt();say(d.name+" ditambahkan. Seret untuk memindahkan.");
-});
-document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{
- mode=b.dataset.mode;pick=null;
- document.querySelectorAll("[data-mode]").forEach(x=>x.classList.toggle("on",x===b));
- say({select:"Mode pilih: klik perangkat untuk mengatur, seret untuk memindahkan.",cable:"Mode kabel: klik dua perangkat untuk menyambungkannya.",delete:"Mode hapus: klik perangkat untuk menghapusnya."}[mode]);render();
-});
-$("#btnClr").onclick=()=>{devs=[];links=[];sel=null;pick=null;for(const k in cnt)delete cnt[k];render();renderPanel();updatePrompt();say("Kanvas dikosongkan.")};
-$("#btnEx").onclick=loadExample;
-
-/* ---------- Panel konfigurasi ---------- */
-function renderPanel(){
- const p=$("#panel"),d=dev(sel);
- if(!d){p.innerHTML='<p class="hint">Klik sebuah perangkat untuk mengatur nama dan alamat IP-nya.</p>';return}
- let h=`<h3>${TYPES[d.type].label}</h3><label>Nama perangkat<input data-k="name" value="${esc(d.name)}"></label>`;
- if(d.type==="switch"){
-  h+=`<p class="hint">Switch bekerja di Layer 2: meneruskan frame di dalam satu jaringan lokal berdasarkan MAC address, sehingga tidak perlu IP.</p>`;
- }else if(d.type==="router"){
-  d.ports.forEach((q,i)=>{
-   const pr=peer(d.id,i);
-   h+=`<fieldset><legend>eth${i} ${pr?"→ "+esc(dev(pr.dev).name):"(belum terhubung)"}</legend>
-   <input data-k="ip" data-i="${i}" placeholder="IP address" value="${esc(q.ip)}" aria-label="IP eth${i}">
-   <input data-k="mask" data-i="${i}" placeholder="Subnet mask" value="${esc(q.mask)}" aria-label="Mask eth${i}"></fieldset>`;
-  });
-  h+=`<label>Rute statis (format: jaringan mask next-hop, satu per baris)<textarea data-k="routes" rows="3" placeholder="192.168.30.0 255.255.255.0 10.0.0.2">${esc(d.routesText)}</textarea></label>`;
- }else{
-  const q=d.ports[0],pr=peer(d.id,0);
-  h+=`<p class="hint">Tersambung ke: ${pr?esc(dev(pr.dev).name):"belum ada kabel"}</p>
-  <label>IP address<input data-k="ip" data-i="0" value="${esc(q.ip)}" placeholder="192.168.10.10"></label>
-  <label>Subnet mask<input data-k="mask" data-i="0" value="${esc(q.mask)}"></label>
-  <label>Default gateway<input data-k="gw" value="${esc(d.gw)}" placeholder="192.168.10.1"></label>`;
- }
- p.innerHTML=h;p.querySelectorAll("input").forEach(validate);
-}
-function validate(i){
- const k=i.dataset.k,v=i.value.trim();
- i.classList.toggle("invalid",(k==="ip"||k==="gw")?(v!==""&&ip2n(v)===null):k==="mask"?!validMask(v):false);
-}
-$("#panel").addEventListener("input",e=>{
- const t=e.target,d=dev(sel);if(!d)return;const k=t.dataset.k;
- if(k==="name"){d.name=t.value||"?";updatePrompt()}
- else if(k==="ip"||k==="mask")d.ports[+t.dataset.i][k]=t.value.trim();
- else if(k==="gw")d.gw=t.value.trim();
- else if(k==="routes"){
-  d.routesText=t.value;d.routes=[];
-  t.value.split("\n").forEach(l=>{const[a,b,c]=l.trim().split(/\s+/);if(ip2n(a)!==null&&validMask(b)&&ip2n(c)!==null)d.routes.push({net:a,mask:b,nh:c})});
- }
- validate(t);render();
 });
 
-/* ---------- Misi ---------- */
-function renderMissions(){$("#mis").innerHTML=MISSIONS.map(([k,t])=>`<li class="${flags[k]?"done":""}">${t}</li>`).join("")}
+document.querySelectorAll(".nav-links a").forEach(link => {
 
-/* ---------- Terminal ---------- */
-const out=$("#out"),cmd=$("#cmd");
-function print(t,c){const d=document.createElement("div");if(c)d.className=c;d.textContent=t;out.appendChild(d);out.scrollTop=out.scrollHeight}
-function updatePrompt(){const d=dev(sel);$("#prompt").textContent=(d&&d.type!=="switch"?d.name:"–")+">"}
-const hist=[];let hi=0;
-cmd.addEventListener("keydown",e=>{
- if(e.key==="ArrowUp"&&hist.length){hi=Math.max(0,hi-1);cmd.value=hist[hi];e.preventDefault()}
- else if(e.key==="ArrowDown"){hi=Math.min(hist.length,hi+1);cmd.value=hist[hi]||"";e.preventDefault()}
- else if(e.key==="Enter"){const v=cmd.value.trim();cmd.value="";if(v){hist.push(v);hi=hist.length;run(v)}}
+    link.addEventListener("click", () => {
+
+        navLinks.classList.remove("active");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+
+    });
+
 });
-async function run(line){
- const d=dev(sel);print($("#prompt").textContent+" "+line,"sys");
- const [c,...a]=line.split(/\s+/),k=c.toLowerCase();
- if(k==="clear"||k==="cls"){out.innerHTML="";return}
- if(k==="bantuan"||k==="help"){
-  print("Perintah:\n  ipconfig            tampilkan konfigurasi IP perangkat terpilih\n  ping <ip>           uji konektivitas (ICMP)\n  traceroute <ip>     lihat setiap hop menuju tujuan\n  route               tabel routing (khusus router)\n  clear               bersihkan layar\nPilih PC/Server/Router di kanvas lebih dulu.");return;
- }
- if(!d||d.type==="switch"){print("Pilih sebuah PC, Server, atau Router di kanvas untuk menjalankan perintah.","err");return}
- if(busy){print("Tunggu perintah sebelumnya selesai.","err");return}
- if(k==="ipconfig"||k==="ifconfig"){
-  d.ports.forEach((p,i)=>{if(d.type==="router"&&!peer(d.id,i)&&!p.ip)return;
-   print(`${d.name} eth${i}\n  IP address . . : ${p.ip||"(belum diatur)"}\n  Subnet mask  . : ${p.mask}`+(d.type!=="router"?`\n  Gateway  . . . : ${d.gw||"(kosong)"}`:""))});
- }else if(k==="route"){
-  if(d.type!=="router")return print("Perintah ini hanya untuk router.","err");
-  d.ports.forEach((p,i)=>{if(ready(p))print(`C  ${[netOf(p.ip,p.mask)>>>24,(netOf(p.ip,p.mask)>>>16)&255,(netOf(p.ip,p.mask)>>>8)&255,netOf(p.ip,p.mask)&255].join(".")}/${maskLen(p.mask)} terhubung langsung, eth${i}`)});
-  d.routes.forEach(r=>print(`S  ${r.net}/${maskLen(r.mask)} via ${r.nh}`));
- }else if(k==="ping"||k==="traceroute"||k==="tracert"){
-  if(!a[0]||ip2n(a[0])===null)return print("Pemakaian: "+k+" <alamat-ip>   contoh: "+k+" 192.168.20.10","err");
-  busy=true;try{k==="ping"?await ping(d,a[0].trim()):await trace(d,a[0].trim())}finally{busy=false}
- }else print("Perintah tidak dikenal. Ketik: bantuan","err");
-}
-async function ping(d,dst){
- print(`Mengirim ping ke ${dst} (32 byte):`);
- const f=route(d.id,dst);let got=0;
- const b=f.ok?route(f.nodes[f.nodes.length-1],f.srcIp):null;
- for(let i=0;i<4;i++){
-  await anim(f.nodes,f.ok?"#e4572e":"#c0392b");
-  if(!f.ok){print(f.msg,"err");flags.m3=1;continue}
-  if(!b.ok){await anim(b.nodes,"#c0392b");print("Request timed out. Balasan tidak bisa kembali: "+b.msg,"err");flags.m3=1;continue}
-  await anim([...f.nodes].reverse(),"#1b8a5a");
-  const rt=f.hops.slice(0,-1).filter(h=>dev(h.dev).type==="router").length;
-  print(`Balasan dari ${dst}: bytes=32 waktu=${Math.max(1,Math.round(f.nodes.length*1.5+Math.random()*2))}ms TTL=${128-rt}`);got++;
-  if(f.hops.some(h=>dev(h.dev).type==="router"&&h.dev!==f.nodes[f.nodes.length-1]))flags.m2=1;else flags.m1=1;
- }
- print(`Statistik: dikirim 4, diterima ${got}, hilang ${4-got} (${(4-got)*25}% loss)`,got?"":"err");
- renderMissions();
-}
-async function trace(d,dst){
- flags.m4=1;renderMissions();
- print(`Melacak rute ke ${dst} (maks 16 hop):`);
- const f=route(d.id,dst);
- for(let i=0;i<f.hops.length;i++){
-  const h=f.hops[i],x=dev(h.dev);
-  await sleep(250);print(`${String(i+1).padStart(2)}  ${x.ports[h.port].ip.padEnd(16)} ${x.name}  ${i+1+Math.round(Math.random()*2)} ms`);
- }
- if(f.ok){await anim(f.nodes,"#e4572e");print("Trace selesai.")}
- else{await sleep(250);print(`${String(f.hops.length+1).padStart(2)}  * * *   ${f.msg}`,"err");flags.m3=1;renderMissions()}
-}
 
-/* ---------- Contoh topologi ---------- */
-function loadExample(){
- devs=[];links=[];for(const k in cnt)delete cnt[k];
- const mk=(t,x,y,n,ip,gw)=>{const d=addDev(t,x,y,n);if(ip)d.ports[0].ip=ip;if(gw)d.gw=gw;return d};
- const pc1=mk("pc",110,120,"PC1","192.168.10.10","192.168.10.1"),pc2=mk("pc",110,330,"PC2","192.168.10.11","192.168.10.1");
- const sw1=mk("switch",270,225,"SW1"),r1=addDev("router",450,225,"R1"),sw2=mk("switch",630,225,"SW2");
- const pc3=mk("pc",790,120,"PC3","192.168.20.10","192.168.20.1"),srv=mk("server",790,330,"WebServer","192.168.20.20","192.168.20.1");
- r1.ports[0].ip="192.168.10.1";r1.ports[1].ip="192.168.20.1";
- [[pc1,sw1],[pc2,sw1],[sw1,r1],[r1,sw2],[sw2,pc3],[sw2,srv]].forEach(([a,b])=>connect(a.id,b.id));
- sel=pc1.id;render();renderPanel();updatePrompt();
- say("Contoh dimuat: 2 jaringan (192.168.10.0/24 dan 192.168.20.0/24) dihubungkan R1.");
- print("Contoh dimuat. Coba: ping 192.168.10.11  lalu  ping 192.168.20.20  (PC1 dipilih).","sys");
-}
+document.getElementById("year").textContent =
+    new Date().getFullYear();
 
-print("NetLab siap. Ketik “bantuan” untuk daftar perintah.","sys");
-renderMissions();loadExample();
 </script>
+
 </body>
 </html>
