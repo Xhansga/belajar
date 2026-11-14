@@ -1,1 +1,348 @@
-Selamat datang di website belajar
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pak Raka | Guru Komputer: Belajar Coding dan Komputer dari Nol</title>
+  <meta name="description" content="Belajar komputer, Microsoft Office, desain, dan coding dengan cara yang sederhana dan menyenangkan bersama Pak Raka, guru komputer berpengalaman.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #12263f;
+      --ink-soft: #4a5b70;
+      --sky: #eaf3fb;
+      --paper: #ffffff;
+      --sun: #ffc93c;
+      --sun-deep: #e0a800;
+      --teal: #167f86;
+      --line: #cfdceb;
+      --radius: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Figtree", system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--sky);
+      line-height: 1.65;
+      font-size: 1.05rem;
+    }
+    h1, h2, h3 { font-family: "Bricolage Grotesque", "Figtree", sans-serif; line-height: 1.12; margin: 0; letter-spacing: -0.02em; }
+    p { margin: 0; }
+    a { color: inherit; }
+    :focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; border-radius: 6px; }
+    .wrap { width: min(1100px, 92%); margin-inline: auto; }
+
+    /* Tombol bergaya tuts keyboard */
+    .key {
+      display: inline-block;
+      padding: .8rem 1.5rem;
+      background: var(--sun);
+      color: var(--ink);
+      font-weight: 600;
+      text-decoration: none;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      box-shadow: 0 5px 0 var(--ink);
+      transition: transform .12s, box-shadow .12s;
+    }
+    .key:hover { transform: translateY(2px); box-shadow: 0 3px 0 var(--ink); }
+    .key:active { transform: translateY(5px); box-shadow: 0 0 0 var(--ink); }
+    .key.light { background: var(--paper); }
+
+    /* Header */
+    header { padding: 1.2rem 0; }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .brand { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 1.3rem; text-decoration: none; }
+    .nav ul { display: flex; gap: 1.6rem; list-style: none; margin: 0; padding: 0; }
+    .nav a.link { text-decoration: none; font-weight: 500; color: var(--ink-soft); }
+    .nav a.link:hover { color: var(--ink); text-decoration: underline; text-underline-offset: 5px; }
+
+    /* Hero */
+    .hero { padding: 3rem 0 5rem; }
+    .hero-grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 3rem; align-items: center; }
+    .hero h1 { font-size: clamp(2.4rem, 5.6vw, 4.2rem); font-weight: 800; }
+    .hero p.lead { margin: 1.4rem 0 2rem; font-size: 1.2rem; color: var(--ink-soft); max-width: 34rem; }
+    .hero .actions { display: flex; flex-wrap: wrap; gap: 1rem 1.2rem; }
+
+    /* Jendela editor (demo hidup) */
+    .editor { background: var(--ink); border-radius: var(--radius); overflow: hidden; box-shadow: 10px 10px 0 var(--sun); }
+    .editor .bar { display: flex; gap: .45rem; padding: .7rem 1rem; background: #1c3657; }
+    .editor .bar i { width: 11px; height: 11px; border-radius: 50%; background: #5c7899; display: block; }
+    .editor pre {
+      margin: 0; padding: 1.2rem 1.3rem; min-height: 9.5rem;
+      font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+      font-size: .95rem; line-height: 1.7; color: #d7e6f7; white-space: pre-wrap;
+    }
+    .editor .tag { color: #ffc93c; }
+    .editor .txt { color: #8fe0d8; }
+    .caret { display: inline-block; width: .55ch; height: 1.1em; background: var(--sun); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .result { background: var(--paper); padding: 1.1rem 1.3rem; min-height: 4.5rem; border-top: 3px solid var(--sun); }
+    .result small { color: var(--ink-soft); display: block; }
+    .result strong { font-family: "Bricolage Grotesque", sans-serif; font-size: 1.6rem; }
+
+    /* Section umum */
+    section { padding: 4.5rem 0; }
+    .head { max-width: 38rem; margin-bottom: 2.5rem; }
+    .head h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); font-weight: 700; }
+    .head p { margin-top: .8rem; color: var(--ink-soft); }
+    .white { background: var(--paper); }
+
+    /* Kelas */
+    .classes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem; }
+    .class { border: 2px solid var(--ink); border-radius: var(--radius); padding: 1.7rem; background: var(--sky); display: flex; flex-direction: column; gap: .8rem; }
+    .class h3 { font-size: 1.4rem; }
+    .class .who { color: var(--teal); font-weight: 600; }
+    .class ul { margin: .2rem 0 0; padding-left: 1.2rem; color: var(--ink-soft); }
+    .class.featured { background: var(--ink); color: #fff; box-shadow: 8px 8px 0 var(--sun); }
+    .class.featured .who { color: var(--sun); }
+    .class.featured ul { color: #c4d4e6; }
+
+    /* Tentang */
+    .about { display: grid; grid-template-columns: 340px 1fr; gap: 3.5rem; align-items: center; }
+    .portrait {
+      aspect-ratio: 4/5; border-radius: var(--radius); border: 2px solid var(--ink);
+      background: var(--sun); display: grid; place-items: center; text-align: center; padding: 1rem;
+      font-family: "Bricolage Grotesque", sans-serif; font-weight: 700; font-size: 1.1rem;
+    }
+    .portrait span { display: block; font-family: "Figtree", sans-serif; font-weight: 400; font-size: .9rem; margin-top: .4rem; }
+    .about h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); margin-bottom: 1rem; }
+    .about p + p { margin-top: 1rem; }
+    .facts { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 1.8rem; }
+    .facts div strong { display: block; font-family: "Bricolage Grotesque", sans-serif; font-size: 2rem; }
+    .facts div { color: var(--ink-soft); }
+
+    /* Langkah belajar: urutan nyata */
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; counter-reset: s; }
+    .steps li { counter-increment: s; border-top: 4px solid var(--teal); padding-top: 1rem; }
+    .steps li::before { content: counter(s); display: inline-grid; place-items: center; width: 2.1rem; height: 2.1rem; border-radius: 8px; background: var(--ink); color: #fff; font-weight: 700; margin-bottom: .7rem; }
+    .steps h3 { font-size: 1.2rem; margin-bottom: .4rem; }
+    .steps p { color: var(--ink-soft); font-size: 1rem; }
+
+    /* Testimoni */
+    .quotes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
+    blockquote { margin: 0; padding: 1.6rem; background: var(--paper); border-left: 6px solid var(--sun); border-radius: 0 var(--radius) var(--radius) 0; }
+    blockquote footer { margin-top: 1rem; font-weight: 600; font-size: .95rem; }
+    blockquote footer span { display: block; font-weight: 400; color: var(--ink-soft); }
+
+    /* Kontak */
+    .contact { background: var(--ink); color: #fff; text-align: center; }
+    .contact h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); max-width: 30rem; margin: 0 auto 1rem; }
+    .contact p { color: #c4d4e6; max-width: 32rem; margin: 0 auto 2rem; }
+    .contact .key { border-color: #fff; box-shadow: 0 5px 0 #fff; }
+    .contact .key:hover { box-shadow: 0 3px 0 #fff; }
+    .contact .key:active { box-shadow: 0 0 0 #fff; }
+    .contact .alt { margin-top: 1.6rem; font-size: .95rem; }
+    .contact .alt a { color: var(--sun); }
+    footer.site { background: var(--ink); color: #8ea4bd; text-align: center; padding: 1.5rem 0 2.2rem; font-size: .9rem; border-top: 1px solid #24405f; }
+
+    /* Responsif */
+    @media (max-width: 900px) {
+      .hero-grid, .about { grid-template-columns: 1fr; }
+      .classes, .quotes { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .portrait { max-width: 280px; aspect-ratio: 1; }
+    }
+    @media (max-width: 560px) {
+      .nav ul { display: none; }
+      .steps { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .caret { animation: none; }
+      .key { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#">Pak Raka</a>
+      <nav aria-label="Menu utama">
+        <ul>
+          <li><a class="link" href="#kelas">Kelas</a></li>
+          <li><a class="link" href="#tentang">Tentang</a></li>
+          <li><a class="link" href="#cara">Cara belajar</a></li>
+          <li><a class="link" href="#kontak">Kontak</a></li>
+        </ul>
+      </nav>
+      <a class="key light" href="#kontak" style="padding:.5rem 1.1rem">Daftar</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" style="padding-top:3rem">
+      <div class="wrap hero-grid">
+        <div>
+          <h1>Komputer itu mudah, kalau diajari dengan sabar.</h1>
+          <p class="lead">Belajar komputer, Microsoft Office, desain, sampai coding pertama Anda bersama Pak Raka. Langkah kecil, praktik langsung, tanpa istilah yang membingungkan.</p>
+          <div class="actions">
+            <a class="key" href="#kontak">Coba kelas gratis</a>
+            <a class="key light" href="#kelas">Lihat kelas</a>
+          </div>
+        </div>
+
+        <div aria-label="Contoh kode yang diketik otomatis">
+          <div class="editor">
+            <div class="bar" aria-hidden="true"><i></i><i></i><i></i></div>
+            <pre id="code" aria-hidden="true"></pre>
+            <div class="result">
+              <small>Hasil di layar:</small>
+              <strong id="out">&nbsp;</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KELAS -->
+    <section id="kelas" class="white">
+      <div class="wrap">
+        <div class="head">
+          <h2>Pilih kelas sesuai kebutuhan Anda</h2>
+          <p>Setiap kelas dimulai dari dasar. Anda tidak perlu pengalaman sebelumnya.</p>
+        </div>
+        <div class="classes">
+          <article class="class">
+            <h3>Komputer Dasar</h3>
+            <p class="who">Untuk pemula dan orang tua</p>
+            <ul>
+              <li>Mengenal komputer dan internet</li>
+              <li>Mengetik 10 jari</li>
+              <li>Email dan keamanan akun</li>
+            </ul>
+          </article>
+          <article class="class featured">
+            <h3>Office dan Produktivitas</h3>
+            <p class="who">Untuk pelajar dan pekerja</p>
+            <ul>
+              <li>Word, Excel, dan PowerPoint</li>
+              <li>Membuat laporan dan presentasi</li>
+              <li>Google Docs dan Sheets</li>
+            </ul>
+          </article>
+          <article class="class">
+            <h3>Coding untuk Pemula</h3>
+            <p class="who">Untuk remaja dan dewasa</p>
+            <ul>
+              <li>HTML, CSS, dan JavaScript</li>
+              <li>Membuat website pertama</li>
+              <li>Menayangkannya di GitHub</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section id="tentang">
+      <div class="wrap about">
+        <div class="portrait" role="img" aria-label="Tempat foto Pak Raka">
+          <div>Ganti dengan foto Anda<span>file: foto.jpg</span></div>
+        </div>
+        <div>
+          <h2>Halo, saya Pak Raka</h2>
+          <p>Saya guru komputer dengan pengalaman lebih dari 10 tahun mengajar siswa SD sampai orang dewasa. Saya percaya semua orang bisa menguasai komputer, hanya butuh penjelasan yang tepat dan waktu untuk mencoba.</p>
+          <p>Di kelas saya, Anda tidak hanya mencatat. Anda mengerjakan proyek nyata: surat lamaran, anggaran rumah tangga, hingga website pribadi.</p>
+          <div class="facts">
+            <div><strong>10+</strong>tahun mengajar</div>
+            <div><strong>500+</strong>murid belajar</div>
+            <div><strong>S.Kom</strong>lulusan Teknik Informatika</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARA BELAJAR -->
+    <section id="cara" class="white">
+      <div class="wrap">
+        <div class="head">
+          <h2>Bagaimana kelasnya berjalan</h2>
+          <p>Empat langkah sederhana dari pendaftaran sampai Anda mahir.</p>
+        </div>
+        <ol class="steps">
+          <li><h3>Konsultasi gratis</h3><p>Ceritakan tujuan Anda. Saya sarankan kelas yang paling cocok.</p></li>
+          <li><h3>Atur jadwal</h3><p>Pilih waktu belajar yang pas, online lewat Zoom atau tatap muka.</p></li>
+          <li><h3>Belajar sambil praktik</h3><p>Setiap pertemuan ada tugas kecil yang langsung dikerjakan.</p></li>
+          <li><h3>Proyek akhir</h3><p>Anda menyelesaikan satu karya nyata dan mendapat sertifikat.</p></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- TESTIMONI -->
+    <section>
+      <div class="wrap">
+        <div class="head">
+          <h2>Kata murid dan orang tua</h2>
+        </div>
+        <div class="quotes">
+          <blockquote>
+            <p>Dulu saya takut menyentuh laptop. Sekarang saya bisa membuat laporan keuangan toko sendiri. Pak Raka sangat sabar.</p>
+            <footer>Bu Sari<span>Pemilik toko kelontong</span></footer>
+          </blockquote>
+          <blockquote>
+            <p>Anak saya kelas 9 sudah bisa membuat website sendiri dalam tiga bulan. Penjelasannya mudah dipahami anak-anak.</p>
+            <footer>Pak Wayan<span>Orang tua murid</span></footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section id="kontak" class="contact">
+      <div class="wrap">
+        <h2>Mulai dari satu pertemuan gratis</h2>
+        <p>Kirim pesan lewat WhatsApp. Biasanya saya membalas dalam beberapa jam.</p>
+        <a class="key" href="https://wa.me/6281234567890?text=Halo%20Pak%20Raka%2C%20saya%20ingin%20ikut%20kelas%20komputer" target="_blank" rel="noopener">Chat lewat WhatsApp</a>
+        <p class="alt">Atau kirim email ke <a href="mailto:raka@example.com">raka@example.com</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">&copy; <span id="year">2026</span> Pak Raka. Guru Komputer.</div>
+  </footer>
+
+  <script>
+    // Tahun otomatis di footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Demo mengetik kode: teks diketik, lalu hasilnya muncul di layar
+    (function () {
+      var code = document.getElementById('code');
+      var out = document.getElementById('out');
+      var lines = [
+        { html: '<span class="tag">&lt;h1&gt;</span>', text: '' },
+        { html: '  ', text: 'Halo, Dunia!' },
+        { html: '<span class="tag">&lt;/h1&gt;</span>', text: '' }
+      ];
+      var message = 'Halo, Dunia!';
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function render(typed) {
+        code.innerHTML =
+          '<span class="tag">&lt;h1&gt;</span>\n  <span class="txt">' + typed + '</span>' +
+          (typed.length < message.length ? '<span class="caret"></span>' : '') +
+          (typed.length === message.length ? '\n<span class="tag">&lt;/h1&gt;</span><span class="caret"></span>' : '');
+        out.textContent = typed.length === message.length ? message : '\u00A0';
+      }
+
+      if (reduce) { render(message); return; }
+
+      var i = 0;
+      function tick() {
+        render(message.slice(0, i));
+        if (i < message.length) { i++; setTimeout(tick, 140); }
+        else { setTimeout(function () { i = 0; tick(); }, 3500); }
+      }
+      tick();
+    })();
+  </script>
+</body>
+</html>
