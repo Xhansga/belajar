@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Materi Rekayasa Perangkat Lunak (RPL)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080f1e; --card:#0f1a30; --chip:#16233f; --line:#1c2d4d;
+  --text:#e8eefc; --muted:#9fb0d0; --accent:#22d3ee; --blue:#3b82f6; --ok:#34d399;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+a{color:var(--accent);text-decoration:none}
+a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:3px;border-radius:6px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+nav{position:sticky;top:0;z-index:10;background:rgba(8,15,30,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+nav b{font-size:1.05rem}
+nav .links{display:flex;gap:22px;font-size:.92rem}
+nav .links a{color:var(--muted)}
+nav .links a:hover{color:var(--accent)}
+.hero{padding:64px 0 36px}
+.back{font-size:.9rem;font-weight:600}
+.hero h1{font-size:clamp(2rem,5vw,3.1rem);line-height:1.15;font-weight:800;margin:18px 0 14px;max-width:18ch}
+.hero p{color:var(--muted);max-width:62ch;font-size:1.05rem}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.stats span{background:var(--chip);border-radius:10px;padding:8px 16px;font-size:.9rem;color:var(--muted)}
+.stats strong{color:var(--text)}
+.progress{margin-top:30px;max-width:520px}
+.progress .top{display:flex;justify-content:space-between;font-size:.88rem;color:var(--muted);margin-bottom:8px}
+.bar{height:10px;background:var(--chip);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--accent));transition:width .4s}
+section{padding:40px 0}
+h2{font-size:1.7rem;font-weight:700;margin-bottom:6px}
+.sub{color:var(--muted);margin-bottom:24px}
+.path{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.phase h3{font-size:1.05rem;margin-bottom:4px}
+.phase small{color:var(--accent);font-weight:600}
+.phase p{color:var(--muted);font-size:.93rem;margin-top:8px}
+.tools{display:flex;gap:10px;flex-wrap:wrap}
+.chip{background:var(--chip);color:var(--muted);padding:6px 14px;border-radius:10px;font-size:.88rem}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.filters button{font:inherit;font-size:.9rem;font-weight:600;background:var(--chip);color:var(--muted);border:1px solid transparent;padding:8px 16px;border-radius:10px;cursor:pointer}
+.filters button.on{background:var(--accent);color:#04202a}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-items:start}
+.mod{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;min-width:0}
+.mod .ico{width:52px;height:52px;border-radius:14px;background:#14284d;display:grid;place-items:center;font-size:1.5rem}
+.mod h3{font-size:1.35rem;margin:18px 0 6px}
+.meta{font-size:.84rem;color:var(--accent);font-weight:600}
+.mod .desc{color:var(--muted);margin:10px 0 16px;font-size:.96rem}
+.goal{font-size:.9rem;color:var(--muted);background:#0b1730;border-left:3px solid var(--blue);padding:10px 14px;border-radius:0 10px 10px 0;margin-bottom:16px}
+details{border-top:1px solid var(--line)}
+summary{cursor:pointer;padding:12px 0;font-weight:600;font-size:.95rem;list-style:none;display:flex;justify-content:space-between}
+summary::after{content:"+";color:var(--accent);font-size:1.2rem;line-height:1}
+details[open] summary::after{content:"−"}
+details ul{padding:0 0 12px 0;list-style:none}
+details li{margin-bottom:6px}
+details label{display:flex;gap:10px;align-items:flex-start;color:var(--muted);font-size:.92rem;cursor:pointer}
+details input{accent-color:var(--accent);margin-top:6px;width:16px;height:16px;flex:none}
+details input:checked+span{color:var(--ok);text-decoration:line-through;text-decoration-color:#34d39966}
+.lab{margin:4px 0 12px;font-size:.9rem;color:var(--text);background:var(--chip);border-radius:12px;padding:12px 14px}
+.lab b{color:var(--accent)}
+pre{margin:10px 0 0;background:#060c19;border:1px solid var(--line);border-radius:10px;padding:12px 14px;overflow-x:auto;font:.82rem/1.6 ui-monospace,Menlo,Consolas,monospace;color:#b6e8f5}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}
+.box h3{margin-bottom:10px}
+.box li{margin:0 0 8px 18px;color:var(--muted);font-size:.94rem}
+.box li b{color:var(--text)}
+footer{border-top:1px solid var(--line);padding:30px 0;text-align:center;color:var(--muted);font-size:.88rem;margin-top:30px}
+@media(max-width:820px){.path,.grid,.two{grid-template-columns:1fr}nav .links{display:none}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<nav><div class="wrap"><b>💻 TechLearn · RPL</b>
+<div class="links"><a href="#alur">Alur Belajar</a><a href="#modul">Modul</a><a href="#proyek">Proyek</a><a href="#karier">Karier</a></div></div></nav>
+
+<header class="hero"><div class="wrap">
+<a class="back" href="index.html">← Kembali ke beranda</a>
+<h1>Rekayasa Perangkat Lunak</h1>
+<p>Belajar membuat aplikasi dari nol: logika pemrograman, web, basis data, sampai aplikasi mobile dan kerja tim dengan Git. Materi disusun bertahap mengikuti Kurikulum Merdeka SMK (Fase E dan F), dengan proyek nyata di setiap tahap.</p>
+<div class="stats"><span><strong id="sMod">9</strong> modul</span><span><strong>3</strong> fase belajar</span><span><strong id="sTop">0</strong> topik</span><span><strong>Teori + coding langsung</strong></span></div>
+<div class="progress"><div class="top"><span>Progres belajarmu</span><span id="pct">0%</span></div><div class="bar"><i id="fill"></i></div></div>
+</div></header>
+
+<section id="alur"><div class="wrap">
+<h2>Alur belajar</h2><p class="sub">Ikuti urutan ini supaya setiap materi punya dasar yang kuat.</p>
+<div class="path">
+<div class="phase"><small>Kelas X · Fase E</small><h3>Dasar pemrograman dan web</h3><p>Berpikir komputasional, algoritma, HTML, CSS, dan JavaScript untuk halaman web interaktif.</p></div>
+<div class="phase"><small>Kelas XI · Fase F</small><h3>Backend dan data</h3><p>Basis data MySQL, PHP, pemrograman berorientasi objek, dan aplikasi CRUD lengkap.</p></div>
+<div class="phase"><small>Kelas XII · Fase F</small><h3>Aplikasi utuh dan kerja tim</h3><p>Mobile app, REST API, Git, pengujian, proyek akhir, dan persiapan UKK.</p></div>
+</div></div></section>
+
+<section><div class="wrap">
+<h2>Perangkat yang dipakai</h2><p class="sub">Semua gratis dan bisa dipasang di laptop sekolah maupun pribadi.</p>
+<div class="tools">
+<span class="chip">Visual Studio Code</span><span class="chip">XAMPP / Laragon</span><span class="chip">Git dan GitHub</span><span class="chip">Node.js</span><span class="chip">Figma</span><span class="chip">Postman</span><span class="chip">Android Studio / Flutter</span><span class="chip">draw.io (UML dan ERD)</span>
+</div></div></section>
+
+<section id="modul"><div class="wrap">
+<h2>Modul pembelajaran</h2><p class="sub">Buka tiap modul, lalu centang topik yang sudah kamu kuasai.</p>
+<div class="filters" id="filters"></div>
+<div class="grid" id="grid"></div>
+</div></section>
+
+<section id="proyek"><div class="wrap">
+<h2>Penilaian dan proyek akhir</h2><p class="sub">Portofoliomu adalah bukti terbaik kompetensimu.</p>
+<div class="two">
+<div class="box"><h3>Cara penilaian</h3><ul>
+<li><b>Kognitif (25%)</b>: kuis konsep dan tes tertulis tiap modul.</li>
+<li><b>Praktik (55%)</b>: tugas coding, code review, dan uji kompetensi.</li>
+<li><b>Sikap kerja (20%)</b>: kerja tim, disiplin commit, dan dokumentasi.</li>
+</ul></div>
+<div class="box"><h3>Ide proyek akhir</h3><ul>
+<li>Sistem informasi sekolah: absensi, nilai, dan pengumuman.</li>
+<li>Aplikasi kasir (POS) untuk UMKM, versi web dan mobile.</li>
+<li>Toko online dengan keranjang, pembayaran simulasi, dan dashboard admin.</li>
+<li>Aplikasi mobile pelaporan masalah lingkungan dengan REST API.</li>
+</ul></div></div></div></section>
+
+<section id="karier"><div class="wrap">
+<h2>Sertifikasi dan karier</h2><p class="sub">Target yang bisa kamu kejar setelah menyelesaikan materi.</p>
+<div class="two">
+<div class="box"><h3>Sertifikasi dan portofolio</h3><ul>
+<li>Sertifikasi BNSP: Junior Web Programmer atau Junior Mobile Programmer</li>
+<li>Kelas dan sertifikat Dicoding atau freeCodeCamp</li>
+<li>Portofolio di GitHub dengan minimal 3 proyek utuh</li>
+<li>Profil LinkedIn dan situs portofolio pribadi</li></ul></div>
+<div class="box"><h3>Peluang kerja</h3><ul>
+<li>Web developer (frontend, backend, atau fullstack)</li>
+<li>Mobile developer</li>
+<li>QA tester dan technical support</li>
+<li>Freelancer, atau lanjut kuliah Informatika dan Sistem Informasi</li></ul></div>
+</div></div></section>
+
+<footer><div class="wrap">© 2026 TechLearn · Platform belajar teknologi untuk siswa SMK</div></footer>
+
+<script>
+const MODULES=[
+{id:"algo",lvl:"X",ico:"🧠",t:"Logika dan Algoritma",jam:"Kelas X · 48 JP",d:"Fondasi semua bahasa pemrograman: cara berpikir memecah masalah menjadi langkah-langkah.",g:"Siswa mampu merancang algoritma dan menuliskannya sebagai program sederhana.",
+ s:[["Berpikir komputasional",["Dekomposisi dan pengenalan pola","Flowchart dan pseudocode","Abstraksi dan algoritma"]],
+    ["Dasar pemrograman (Python)",["Variabel, tipe data, dan operator","Percabangan dan perulangan","Fungsi dan struktur data (list, dictionary)"]],
+    ["Latihan pemecahan masalah",["Debugging dan membaca pesan error","Pencarian dan pengurutan dasar","Mini proyek: kalkulator dan tebak angka"]]],
+ lab:"Buat program kalkulator nilai rapor yang menghitung rata-rata dan predikat.",
+ code:"nilai = [80, 90, 75]\nrata = sum(nilai) / len(nilai)\nprint('Rata-rata:', rata)"},
+{id:"html",lvl:"X",ico:"🎨",t:"HTML dan CSS",jam:"Kelas X · 48 JP",d:"Membangun halaman web yang rapi, terstruktur, dan nyaman dilihat di semua layar.",g:"Siswa mampu membuat web statis responsif dari desain yang diberikan.",
+ s:[["HTML",["Struktur dokumen dan elemen semantik","Tabel, form, dan media","Aksesibilitas dasar"]],
+    ["CSS",["Selector, box model, dan warna","Flexbox dan Grid","Media query dan desain responsif"]],
+    ["Desain",["Tipografi dan hierarki visual","Wireframe di Figma","Publikasi dengan GitHub Pages"]]],
+ lab:"Ubah desain Figma halaman profil sekolah menjadi web responsif dan publikasikan.",
+ code:"<button class=\"btn\">Daftar</button>\n.btn { padding: 10px 18px; border-radius: 10px; }"},
+{id:"js",lvl:"X",ico:"⚡",t:"JavaScript",jam:"Kelas X · 60 JP",d:"Membuat halaman web hidup: bereaksi terhadap klik, input, dan data dari server.",g:"Siswa mampu membuat aplikasi web interaktif dengan manipulasi DOM dan fetch API.",
+ s:[["Dasar JavaScript",["Variabel, fungsi, dan array","Objek dan JSON","ES6: arrow function dan template literal"]],
+    ["DOM dan event",["Memilih dan mengubah elemen","Event listener dan validasi form","Menyimpan data di localStorage"]],
+    ["Data eksternal",["Fetch API dan async/await","Menampilkan data dari API publik","Pengantar Node.js dan npm"]]],
+ lab:"Buat aplikasi to-do list dengan penyimpanan lokal dan pencarian cuaca dari API.",
+ code:"const res = await fetch('/api/tugas');\nconst data = await res.json();\nconsole.log(data.length);"},
+{id:"db",lvl:"XI",ico:"🗄️",t:"Basis Data dan MySQL",jam:"Kelas XI · 60 JP",d:"Merancang dan mengelola data supaya aplikasi cepat, rapi, dan konsisten.",g:"Siswa mampu merancang basis data ternormalisasi dan menulis query SQL kompleks.",
+ s:[["Perancangan",["Entitas, atribut, dan relasi (ERD)","Normalisasi 1NF sampai 3NF","Primary key dan foreign key"]],
+    ["SQL",["DDL dan DML: CREATE, INSERT, UPDATE, DELETE","SELECT, WHERE, ORDER BY, GROUP BY","JOIN dan subquery"]],
+    ["Administrasi",["Index dan performa query","Backup dan restore","Hak akses pengguna"]]],
+ lab:"Rancang ERD sistem perpustakaan, implementasikan di MySQL, dan buat 10 query laporan.",
+ code:"SELECT s.nama, COUNT(p.id) AS total\nFROM siswa s JOIN pinjam p ON p.siswa_id = s.id\nGROUP BY s.id;"},
+{id:"php",lvl:"XI",ico:"🐘",t:"PHP dan Backend Web",jam:"Kelas XI · 72 JP",d:"Sisi server aplikasi web: memproses form, login, dan menyimpan data ke database.",g:"Siswa mampu membuat aplikasi web dinamis dengan login dan CRUD yang aman.",
+ s:[["PHP dasar",["Sintaks, array, dan fungsi","Form GET dan POST","Include dan struktur folder"]],
+    ["Aplikasi dinamis",["Koneksi MySQL dengan PDO","CRUD lengkap","Session, login, dan hak akses"]],
+    ["Keamanan dan framework",["SQL injection, XSS, dan password hashing","Pengenalan MVC dan Laravel","Upload file yang aman"]]],
+ lab:"Bangun aplikasi data siswa dengan login admin, CRUD, dan pencarian.",
+ code:"$stmt = $pdo->prepare('SELECT * FROM users WHERE email = ?');\n$stmt->execute([$email]);\n$user = $stmt->fetch();"},
+{id:"pbo",lvl:"XI",ico:"🧩",t:"Pemrograman Berorientasi Objek",jam:"Kelas XI · 60 JP",d:"Cara menyusun program besar supaya mudah dirawat dan dikembangkan bersama tim.",g:"Siswa mampu memodelkan masalah nyata menjadi kelas dan objek.",
+ s:[["Konsep dasar",["Class, object, atribut, dan method","Constructor dan enkapsulasi","Modifier akses"]],
+    ["Pilar PBO",["Inheritance (pewarisan)","Polymorphism","Abstraction dan interface"]],
+    ["Penerapan",["Diagram kelas UML","Penanganan error (exception)","Mini proyek: sistem perpustakaan"]]],
+ lab:"Modelkan sistem kasir kantin dengan kelas Produk, Transaksi, dan Pelanggan.",
+ code:"class Produk:\n    def __init__(self, nama, harga):\n        self.nama = nama\n        self.harga = harga"},
+{id:"mobile",lvl:"XII",ico:"📱",t:"Aplikasi Mobile dan REST API",jam:"Kelas XII · 72 JP",d:"Membawa aplikasi ke ponsel dan menghubungkannya dengan server lewat API.",g:"Siswa mampu membuat aplikasi mobile yang terhubung ke REST API buatan sendiri.",
+ s:[["REST API",["Konsep HTTP method dan status code","Membuat API dengan PHP atau Node.js","Pengujian dengan Postman"]],
+    ["Mobile development",["Dasar Flutter atau Kotlin","Layout, navigasi, dan state","Menampilkan data dari API"]],
+    ["Rilis",["Autentikasi token","Debug di perangkat nyata","Build APK dan distribusi"]]],
+ lab:"Buat aplikasi catatan yang sinkron dengan API dan bisa login.",
+ code:"GET /api/catatan      -> 200 OK\nPOST /api/catatan     -> 201 Created\nDELETE /api/catatan/5 -> 204 No Content"},
+{id:"rpl",lvl:"XII",ico:"🔧",t:"Rekayasa PL, Git, dan Pengujian",jam:"Kelas XII · 60 JP",d:"Cara tim profesional membangun perangkat lunak: terencana, terdokumentasi, dan teruji.",g:"Siswa mampu bekerja dalam tim memakai Git dan menguji aplikasi secara sistematis.",
+ s:[["Siklus pengembangan",["Waterfall dan Agile/Scrum","Analisis kebutuhan dan user story","UML: use case, activity, sequence"]],
+    ["Kolaborasi",["Git: commit, branch, merge","Pull request dan code review","Mengatasi merge conflict"]],
+    ["Pengujian",["Black box dan white box testing","Unit test dasar","Pelaporan bug dan UAT"]]],
+ lab:"Kerjakan fitur dalam tim 3 orang memakai branch, pull request, dan daftar test case.",
+ code:"git checkout -b fitur-login\ngit add .\ngit commit -m \"Tambah halaman login\"\ngit push origin fitur-login"},
+{id:"proyek",lvl:"XII",ico:"🏆",t:"Proyek Akhir dan UKK",jam:"Kelas XII · 60 JP",d:"Menggabungkan semua kompetensi menjadi satu produk yang siap dipamerkan.",g:"Siswa mampu merencanakan, membangun, menguji, dan mempresentasikan aplikasi utuh.",
+ s:[["Perencanaan",["Riset kebutuhan pengguna","Desain UI di Figma dan ERD","Backlog dan pembagian tugas"]],
+    ["Pengembangan",["Sprint mingguan dan demo internal","Integrasi frontend, backend, dan database","Pengujian dan perbaikan bug"]],
+    ["Presentasi dan karier",["Deploy ke hosting","Pitch dan demo produk","Persiapan UKK, portofolio, dan CV"]]],
+ lab:"Selesaikan produk lengkap dengan dokumentasi README, demo, dan laporan pengujian.",
+ code:"# README.md\n## Nama Aplikasi\nDeskripsi, fitur, cara instalasi, dan tangkapan layar."}
+];
+const KEY="rpl-progress-v1";
+let done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+const grid=document.getElementById("grid"),filters=document.getElementById("filters");
+const total=MODULES.reduce((n,m)=>n+m.s.reduce((a,x)=>a+x[1].length,0),0);
+document.getElementById("sMod").textContent=MODULES.length;
+document.getElementById("sTop").textContent=total;
+const esc=s=>s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+function render(f){
+  grid.innerHTML=MODULES.filter(m=>f==="all"||m.lvl===f).map(m=>`
+  <article class="mod"><div class="ico" aria-hidden="true">${m.ico}</div>
+  <h3>${m.t}</h3><div class="meta">${m.jam}</div>
+  <p class="desc">${m.d}</p><div class="goal"><b>Tujuan:</b> ${m.g}</div>
+  ${m.s.map((x,i)=>`<details ${i===0?"open":""}><summary>${x[0]}</summary><ul>${x[1].map((t,j)=>{const k=m.id+i+j;return `<li><label><input type="checkbox" data-k="${k}" ${done[k]?"checked":""}><span>${t}</span></label></li>`}).join("")}</ul></details>`).join("")}
+  <details><summary>Praktik dan contoh kode</summary><div class="lab"><b>Tugas:</b> ${m.lab}</div><pre><code>${esc(m.code)}</code></pre></details></article>`).join("");
+}
+function update(){
+  const n=Object.values(done).filter(Boolean).length,p=Math.round(n/total*100);
+  document.getElementById("pct").textContent=p+"% ("+n+"/"+total+" topik)";
+  document.getElementById("fill").style.width=p+"%";
+}
+grid.addEventListener("change",e=>{
+  if(e.target.dataset.k){done[e.target.dataset.k]=e.target.checked;
+    try{localStorage.setItem(KEY,JSON.stringify(done))}catch(_){}
+    update();}
+});
+[["all","Semua"],["X","Kelas X"],["XI","Kelas XI"],["XII","Kelas XII"]].forEach(([v,l],i)=>{
+  const b=document.createElement("button");b.textContent=l;if(!i)b.className="on";
+  b.onclick=()=>{filters.querySelectorAll("button").forEach(x=>x.classList.remove("on"));b.classList.add("on");render(v)};
+  filters.appendChild(b);
+});
+render("all");update();
+</script>
+</body>
+</html>
